@@ -1,44 +1,17 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "TheGauntletPlayerController.generated.h"
 
-class UInputMappingContext;
-class UUserWidget;
-
-/**
- *  Basic PlayerController class for a third person game
- *  Manages input mappings
- */
-UCLASS(abstract)
-class ATheGauntletPlayerController : public APlayerController
+UCLASS()
+class THEGAUNTLET_API ATheGauntletPlayerController : public APlayerController
 {
-	GENERATED_BODY()
-	
-protected:
+    GENERATED_BODY()
 
-	/** Input Mapping Contexts */
-	UPROPERTY(EditAnywhere, Category ="Input|Input Mappings")
-	TArray<UInputMappingContext*> DefaultMappingContexts;
+public:
+    virtual void SetupInputComponent() override;
 
-	/** Input Mapping Contexts */
-	UPROPERTY(EditAnywhere, Category="Input|Input Mappings")
-	TArray<UInputMappingContext*> MobileExcludedMappingContexts;
-
-	/** Mobile controls widget to spawn */
-	UPROPERTY(EditAnywhere, Category="Input|Touch Controls")
-	TSubclassOf<UUserWidget> MobileControlsWidgetClass;
-
-	/** Pointer to the mobile controls widget */
-	TObjectPtr<UUserWidget> MobileControlsWidget;
-
-	/** Gameplay initialization */
-	virtual void BeginPlay() override;
-
-	/** Input mapping context setup */
-	virtual void SetupInputComponent() override;
-
+    UFUNCTION(BlueprintCallable)
+    void ShowCursor(bool bShow);
 };
